@@ -23,6 +23,13 @@ app.use(
 
 app.use(apiLimiter);
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Server is healthy",
+  });
+});
+
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
@@ -30,7 +37,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/schools", schoolRoutes);
+app.use("/api/v1/schools", schoolRoutes);
 
 // 404 handler
 app.all("/{*splat}", (req, res, next) => {
