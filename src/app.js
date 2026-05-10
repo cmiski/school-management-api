@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import schoolRoutes from "./routes/schoolRoutes.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 
 const app = express();
 
@@ -20,5 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/schools", schoolRoutes);
+
+app.use(errorMiddleware);
 
 export default app;
