@@ -1,6 +1,8 @@
-const validate = (schema) => {
+const validate = (schema, source = "body") => {
   return (req, res, next) => {
-    const { error, value } = schema.validate(req.body);
+    const data = req[source];
+
+    const { error, value } = schema.validate(data);
 
     if (error) {
       return res.status(400).json({
@@ -9,8 +11,8 @@ const validate = (schema) => {
       });
     }
 
-    // Replace req.body with sanitized validated data
-    req.body = value;
+    // Safely update validated data
+    Object.assign(req[source], value);
 
     next();
   };
