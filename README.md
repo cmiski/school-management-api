@@ -13,21 +13,27 @@ The system supports:
 - Listing schools sorted by distance from a user location.
 - Secure and clean API behavior with rate limiting, error handling, and structured responses.
 
+## Live Deployment
+
+- Dashboard / Landing Page: [https://school-management-api-production-a206.up.railway.app/](https://school-management-api-production-a206.up.railway.app/)
+- Live API Base URL: [https://school-management-api-production-a206.up.railway.app](https://school-management-api-production-a206.up.railway.app)
+
 ## Table Of Contents
 
 1. [Project Objective](#project-objective)
-2. [Tech Stack](#tech-stack)
-3. [System Design](#system-design)
-4. [Project Structure](#project-structure)
-5. [Setup Guide](#setup-guide)
-6. [Environment Variables](#environment-variables)
-7. [Database Schema](#database-schema)
-8. [API Documentation](#api-documentation)
-9. [Validation Rules](#validation-rules)
-10. [Error Response Format](#error-response-format)
-11. [Edge Case Handling](#edge-case-handling)
-12. [Assessment Mapping](#assessment-mapping)
-13. [Known Notes](#known-notes)
+2. [Live Deployment](#live-deployment)
+3. [Tech Stack](#tech-stack)
+4. [System Design](#system-design)
+5. [Project Structure](#project-structure)
+6. [Setup Guide](#setup-guide)
+7. [Environment Variables](#environment-variables)
+8. [Database Schema](#database-schema)
+9. [API Documentation](#api-documentation)
+10. [Validation Rules](#validation-rules)
+11. [Error Response Format](#error-response-format)
+12. [Edge Case Handling](#edge-case-handling)
+13. [Assessment Mapping](#assessment-mapping)
+14. [Known Notes](#known-notes)
 
 ## Project Objective
 
@@ -164,6 +170,7 @@ CREATE TABLE IF NOT EXISTS schools (
 ## API Documentation
 
 Base URL (local): `http://localhost:5000`
+Base URL (production): `https://school-management-api-production-a206.up.railway.app`
 
 Supported route styles:
 
