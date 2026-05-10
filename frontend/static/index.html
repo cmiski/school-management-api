@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educase School Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@500;700&family=Source+Serif+4:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="kicker">School Management API</p>
+        <h1>Welcome to Educase School Management System</h1>
+        <p class="lead">
+          A clean API for adding school records and retrieving schools sorted by
+          distance from a provided location.
+        </p>
+        <div class="rules" aria-hidden="true">
+          <span class="square"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container sections">
+      <section class="card card--full" aria-labelledby="overview-title">
+        <h2 id="overview-title">Overview</h2>
+        <p class="meta">
+          Base route: <code>/</code><br />
+          API versioned routes: <code>/api/v1/schools</code><br />
+          Also available at root-level route aliases : /addSchool, /listSchools
+        </p>
+      </section>
+
+      <section class="card card--full" aria-labelledby="endpoints-title">
+        <h2 id="endpoints-title">Endpoints</h2>
+        <div class="endpoint">
+          <code>GET /health</code>
+          <code>POST /addSchool { payload }</code>
+          <code
+            >GET
+            /listSchools?latitude=&lt;number&gt;&amp;longitude=&lt;number&gt;</code
+          >
+          <code>POST /api/v1/schools/addSchool { payload }</code>
+          <code
+            >GET
+            /api/v1/schools/listSchools?latitude=&lt;number&gt;&amp;longitude=&lt;number&gt;</code
+          >
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="payload-title">
+        <h2 id="payload-title">Add School Payload</h2>
+        <div class="endpoint">
+          <code
+            >{ "name": "ABC School", "address": "Street, City", "latitude":
+            12.34, "longitude": 56.78 }</code
+          >
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="response-title">
+        <h2 id="response-title">Typical Response</h2>
+        <div class="endpoint">
+          <code
+            >{ "success": true, "message": "School added successfully",
+            "schoolId": 1 }</code
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          Made by
+          <a
+            href="https://github.com/cmiski"
+            target="_blank"
+            style="color: #000; text-decoration: none"
+            >vaibhv</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
