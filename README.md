@@ -25,8 +25,9 @@ The system supports:
 8. [API Documentation](#api-documentation)
 9. [Validation Rules](#validation-rules)
 10. [Error Response Format](#error-response-format)
-11. [Assessment Mapping](#assessment-mapping)
-12. [Known Notes](#known-notes)
+11. [Edge Case Handling](#edge-case-handling)
+12. [Assessment Mapping](#assessment-mapping)
+13. [Known Notes](#known-notes)
 
 ## Project Objective
 
@@ -134,6 +135,7 @@ On startup, the app:
 
 - Tests DB connection.
 - Creates `schools` table automatically if it does not exist.
+- Enforces unique school identity constraint on (`name`, `address`, `latitude`, `longitude`).
 
 ## Environment Variables
 
@@ -154,7 +156,8 @@ CREATE TABLE IF NOT EXISTS schools (
   name VARCHAR(255) NOT NULL,
   address VARCHAR(500) NOT NULL,
   latitude FLOAT NOT NULL,
-  longitude FLOAT NOT NULL
+  longitude FLOAT NOT NULL,
+  CONSTRAINT unique_school_identity UNIQUE (name, address, latitude, longitude)
 );
 ```
 
@@ -191,6 +194,16 @@ Success Response (`201`):
   "success": true,
   "message": "School added successfully",
   "schoolId": 1
+}
+```
+
+Duplicate Response (`409`):
+
+```json
+{
+  "success": false,
+  "status": "fail",
+  "message": "School already exists with same name, address and coordinates"
 }
 ```
 
@@ -255,6 +268,7 @@ For `POST /addSchool`:
 - `address`: required string, trimmed, length `5-500`
 - `latitude`: required number, range `-90 to 90`
 - `longitude`: required number, range `-180 to 180`
+- All validation issues are returned together in one response message.
 
 For `GET /listSchools` query:
 
@@ -276,21 +290,20 @@ All errors follow a consistent shape:
 Common status codes:
 
 - `400` invalid input
+- `409` duplicate school identity
 - `404` route not found
 - `429` too many requests
+- `503` db lock/deadlock retry case
 - `500` internal server error
 
-## Assessment Mapping
+## Edge Case Handling
 
-Requirement checklist:
+- Duplicate school inserts are blocked at both app layer and DB layer.
+- `name` and `address` are normalized (trim + collapse extra spaces) before duplicate checks and insert.
+- Malformed JSON body returns `400` with message `Malformed JSON payload`.
+- DB lock wait timeout/deadlock errors return `503` with retry-friendly message.
 
-- `schools` table with required fields: completed
-- `POST /addSchool`: completed
-- Input validation before insert: completed
-- `GET /listSchools`: completed
-- Distance-based sort by user coordinates: completed
-
-## Note
+## Notes
 
 - Rate limit is enabled globally (`100` requests per `15` minutes per IP).
 - Distance is returned in kilometers, rounded to 2 decimals.
