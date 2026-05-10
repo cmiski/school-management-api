@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/", schoolRoutes);
 app.use("/api/v1/schools", schoolRoutes);
 
 // 404 handler
